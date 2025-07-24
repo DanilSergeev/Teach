@@ -9,7 +9,7 @@ function Header() {
   const handleShow = () => setShow(true);
   let links = [
     { to: "/", title: "Главная" },
-    { to: "/aboutUs", title: "О проекте" },
+    { to: "/about", title: "О проекте" },
   ];
 
   return (

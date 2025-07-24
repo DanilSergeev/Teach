@@ -1,4 +1,4 @@
-$color1: #c40808;
+$color1: #198754;
 
 * {
     margin: 0;
@@ -49,8 +49,8 @@ header {
         color: white;
     }
 }
-.offcanvas-header{
-    .btn-close{
+.offcanvas-header {
+    .btn-close {
         background-color: rgba(255, 255, 255, 0.3);
     }
 }
@@ -96,11 +96,11 @@ img {
     -webkit-user-drag: none;
 }
 
-main {
-    &:last-of-type {
-        margin-bottom: 3rem;
-    }
-}
+// main {
+//     &:last-of-type {
+//         margin-bottom: 3rem;
+//     }
+// }
 
 footer {
     background: #2e2e2e;
@@ -115,7 +115,7 @@ footer {
 }
 
 .WelcomeHomeComponents {
-    user-select: none; 
+    user-select: none;
     position: relative;
     display: flex;
     align-items: center;
@@ -166,7 +166,7 @@ footer {
         h6 {
             opacity: 0.8;
         }
-        img{
+        img {
             height: 33vh;
         }
     }
@@ -207,6 +207,21 @@ footer {
             font-size: 16px;
             line-height: 28px;
             width: 30%;
+        }
+    }
+}
+.InfoCardsHamePage {
+    background-color: #17360d04;
+    .wrapper {
+        display: flex;
+        justify-content: space-around;
+        position: relative;
+        grid-gap: 8%;
+        .card{
+            bottom: -2vh;
+        }
+        .card:nth-of-type(2){
+            bottom: 2vh;
         }
     }
 }
