@@ -10,6 +10,7 @@ function Header() {
   let links = [
     { to: "/", title: "Главная" },
     { to: "/about", title: "О проекте" },
+    { to: "/auth", title: "Авторизация" },
   ];
 
   return (
@@ -25,11 +26,16 @@ function Header() {
         </Offcanvas.Header>
         <hr />
         <Offcanvas.Body>
-          {links.map((item) => (
+          {links.map((item,index) => index !== links.length-1 ?(
             <Link key={item.to} to={item.to} onClick={() => handleClose()} className="headerLink">
               {item.title}
             </Link>
-          ))}
+          ):(<>
+              <hr/>
+              <Link key={item.to} to={item.to} onClick={() => handleClose()} className="headerLink">
+                {item.title}
+              </Link>
+          </>))}
         </Offcanvas.Body>
       </Offcanvas>
     </>
