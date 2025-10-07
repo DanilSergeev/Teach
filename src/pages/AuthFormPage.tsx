@@ -23,7 +23,7 @@ function AuthFormPage() {
           </Button>
         </Form>
         <div style={{backgroundImage:`url(${image})`}}>
-
+            <h2>Форма авторизации</h2>
         </div>
       </section>
     </main>

@@ -14,9 +14,11 @@
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.10.0",
     "bootstrap": "^5.3.7",
-    "react": "^19.1.0",
+    "leaflet": "^1.9.4",
+    "react": "^19.0.0-rc.1",
     "react-bootstrap": "^2.10.10",
-    "react-dom": "^19.1.0",
+    "react-dom": "^19.0.0-rc.1",
+    "react-leaflet": "^5.0.0",
     "react-router-dom": "^7.6.3",
     "react-scripts": "5.0.1",
     "sass": "^1.89.2",
@@ -46,5 +48,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/leaflet": "^1.9.20"
   }
 }

@@ -10,6 +10,7 @@ function Header() {
   let links = [
     { to: "/", title: "Главная" },
     { to: "/about", title: "О проекте" },
+    { to: "/test", title: "Test" },
     { to: "/auth", title: "Авторизация" },
   ];
 
