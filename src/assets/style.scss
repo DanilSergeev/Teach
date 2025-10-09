@@ -1,21 +1,6 @@
 $color1: #198754;
 
 
-// Intaractive map
-// disable flag
-.leaflet-right{
-    display: none !important;
-}
-.leaflet-container{
-    height: 70vh;
-    width: 100%;
-    position: relative;
-    z-index: 0;
-    
-    outline: unset;
-    background: #007c9b15 !important;
-}
-
 
 
 
@@ -287,3 +272,6 @@ footer {
     }
 }
 
+
+
+// .InteractiveMap scss in components

@@ -1,4 +1,4 @@
-import InteractiveMap from "../components/GeneralComponents/InteractiveMap";
+import InteractiveMap from "../components/GeneralComponents/InteractiveMap/InteractiveMap";
 
 const GeneralPage: React.FC = () => {
 
