@@ -3,7 +3,7 @@ import {  MapContainer,  ImageOverlay,  useMap,  useMapEvents,   Polygon,} from 
 import "leaflet/dist/leaflet.css";
 import * as L from "leaflet";
 
-const mymap = require("../../assets/img/testmap.png");
+const mymap = require("../../../assets/img/testmap.png");
 
 
 const MapClickHandler: FC<{ onMapClick: (latlng: L.LatLng) => void }> = ({onMapClick,}) => {// Компонент для обработки кликов по карте

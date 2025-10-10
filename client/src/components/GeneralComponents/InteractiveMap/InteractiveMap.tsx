@@ -32,6 +32,7 @@ const PolygonControl: FC<{ isVisible: boolean; onToggle: () => void }> = ({ isVi
   }, [map, isVisible, onToggle]);
   return null;
 };
+
 /** Конфиг  */
 const MapConfig: FC<{ bounds: L.LatLngBoundsExpression }> = ({ bounds }) => {
   const map = useMap();
@@ -46,60 +47,63 @@ const MapConfig: FC<{ bounds: L.LatLngBoundsExpression }> = ({ bounds }) => {
 
   return null;
 };
-/** Отслеживание зума  */
-const ZoomTracker: FC = () => {
-  const map = useMapEvents({
-    zoomend: () => {
-      const currentZoom = map.getZoom();
-      //   console.log(currentZoom);
-    },
-  });
-  return null;
-};
+
 /** Конфиг текста*/
-const TextMap: FC<{position:L.LatLngExpression,text:string}> = ({position, text}) =>  {
-  const textIcon = new L.DivIcon({ html: `<p>${text}</p>`, className: "intaractiveMapTextH2",});
+const TextMap: FC<{ position: L.LatLngExpression; text: string }> = ({ position, text }) => {
+  const textIcon = new L.DivIcon({ html: `<p>${text}</p>`, className: "intaractiveMapTextH2" });
   return <Marker position={position} icon={textIcon} />;
 };
 /** Отслеживание координат мыши */
 const CoordinatesTracker: FC = () => {
   const [coordinates, setCoordinates] = useState<L.LatLng | null>(null);
-  
+
   useMapEvents({
     mousemove: (e) => {
       setCoordinates(e.latlng);
     },
     mouseout: () => {
       setCoordinates(null);
-    }   
+    },
   });
 
   return coordinates ? (
-    <div style={{position: "absolute",bottom: "1vh",right: "2vw", zIndex:1000}} >
+    <div style={{ position: "absolute", bottom: "1vh", right: "2vw", zIndex: 1000 }}>
       X: {coordinates.lat.toFixed(0)}
       Y: {coordinates.lng.toFixed(0)}
     </div>
   ) : null;
 };
 
-
 const InteractiveMap: React.FC = () => {
   const [showPolygon, setShowPolygon] = useState(true);
+  const [showZoomOverOne, setShowZoomOverOne] = useState(false);
+
   const imageBounds: L.LatLngBoundsExpression = [
     [0, 0],
     [1080, 1920],
   ];
 
+  /** Отслеживание зума  */
+  const ZoomTracker: FC = () => {
+    const map = useMapEvents({
+      zoomend: () => {
+        const currentZoom = map.getZoom();
+        currentZoom >= 2 ? setShowZoomOverOne(true) : setShowZoomOverOne(false);
+      },
+    });
+    return null;
+  };
+
   return (
     <>
       {/* <DevToolsInteractiveMap></DevToolsInteractiveMap>   */}
-      <MapContainer className="InteractiveMap"  bounds={imageBounds} minZoom={-1} maxZoom={4} zoomControl={true}>
+      <MapContainer className="InteractiveMap" bounds={imageBounds} minZoom={-1} maxZoom={4} zoomControl={true}>
         <MapConfig bounds={imageBounds} />
         <ImageOverlay url={mymap} bounds={imageBounds} />
 
         <PolygonControl isVisible={showPolygon} onToggle={() => setShowPolygon(!showPolygon)} />
         <ZoomTracker />
-        <CoordinatesTracker  />
+        <CoordinatesTracker />
 
         {showPolygon ? (
           <Polygon
@@ -116,10 +120,14 @@ const InteractiveMap: React.FC = () => {
         ) : (
           <></>
         )}
-
-
-        <TextMap position={[100,500]} text="asd"/>
-        <TextMap position={[300,500]} text="ggrg"/>
+        {showZoomOverOne ? (
+          <>
+            <TextMap position={[100, 500]} text="asd" />
+            <TextMap position={[300, 500]} text="ggrg" />
+          </>
+        ) : (
+          <></>
+        )}
       </MapContainer>
     </>
   );
