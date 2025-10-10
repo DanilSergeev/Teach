@@ -47,9 +47,7 @@ const MapConfig: FC<{ bounds: L.LatLngBoundsExpression }> = ({ bounds }) => { //
 
 
 
-/**
- * Components for obtaining crs bounds 
-*/
+/** Components for obtaining crs bounds */
 const DevToolsInteractiveMap: React.FC = () => {
   const [points, setPoints] = useState<L.LatLng[]>([]);
   const imageBounds: L.LatLngBoundsExpression = [[0, 0],[1080, 1920],];

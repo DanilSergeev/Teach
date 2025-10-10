@@ -1,12 +1,14 @@
 import InteractiveMap from "../components/GeneralComponents/InteractiveMap/InteractiveMap";
 
-const GeneralPage: React.FC = () => {
-
+function GeneralPage() {
   return (
     <main>
       <InteractiveMap/>
+      <div>
+
+      </div>
     </main>
   );
-};
+}
 
 export default GeneralPage;

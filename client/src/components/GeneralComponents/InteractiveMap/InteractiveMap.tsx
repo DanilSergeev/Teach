@@ -7,6 +7,12 @@ import DevToolsInteractiveMap from "./DevToolsInteractiveMap";
 
 const mymap = require("../../../assets/img/testmap.png");
 
+interface IPolygon {
+  position: L.LatLngExpression[];
+  color?: string;
+  children?: React.ReactNode;
+}
+
 /** Кнопка включения/выключения полигонов  */
 const PolygonControl: FC<{ isVisible: boolean; onToggle: () => void }> = ({ isVisible, onToggle }) => {
   const map = useMap();
@@ -94,6 +100,18 @@ const InteractiveMap: React.FC = () => {
     return null;
   };
 
+  /** Кастомный полигон
+   * @example color="#FF00FF"
+   * position={[[639, 668],[653, 502],[805, 542],]}
+   */
+  const MyPolygon: FC<IPolygon> = ({ position, color = "#ff0000ff", children }) => {
+    return (
+      <Polygon pathOptions={{ color, fillOpacity: 0.15, opacity: 0.4 }} positions={[position]}>
+        {children}
+      </Polygon>
+    );
+  };
+
   return (
     <>
       {/* <DevToolsInteractiveMap></DevToolsInteractiveMap>   */}
@@ -105,25 +123,32 @@ const InteractiveMap: React.FC = () => {
         <ZoomTracker />
         <CoordinatesTracker />
 
-        {showPolygon ? (
-          <Polygon
-            positions={[
-              [639, 668],
-              [653, 502],
-              [805, 542],
-            ]}>
-            <Popup>test</Popup>
-            <Tooltip permanent direction="center">
-              Надпись внутри
-            </Tooltip>
-          </Polygon>
-        ) : (
-          <></>
-        )}
         {showZoomOverOne ? (
           <>
             <TextMap position={[100, 500]} text="asd" />
             <TextMap position={[300, 500]} text="ggrg" />
+          </>
+        ) : (
+          <></>
+        )}
+
+        {showPolygon ? (
+          <>
+            <MyPolygon
+              color="#1eff00ff"
+              position={[
+                [639, 668],
+                [653, 502],
+                [805, 542],
+              ]}></MyPolygon>
+            <MyPolygon
+              color="#001affff"
+              position={[
+                [62, 38],
+                [123, 122],
+                [200, 542],
+              ]}
+            />
           </>
         ) : (
           <></>
