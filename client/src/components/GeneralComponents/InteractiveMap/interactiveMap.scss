@@ -15,12 +15,22 @@
     outline: unset;
     background: #007c9b62 !important;
 }
+
+// textMap
+.textMap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: .65;
+    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.3);
+}
+.textSea{
+    color: rgba(55, 71, 218);
+}
+
 .intaractiveMapTextH2 {
+    font-size: 42px;
     font-weight: bold;
     font-family: cursive;
     letter-spacing: 1.6vh;
-    display: flex !important;
-    justify-content: center;
 }
-
-
