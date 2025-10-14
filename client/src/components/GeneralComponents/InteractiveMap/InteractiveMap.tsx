@@ -7,7 +7,7 @@ import DevToolsInteractiveMap from "./DevToolsInteractiveMap";
 
 const mymap = require("../../../assets/img/testmap.png");
 
-type TextVariant =  'textSea'
+type TextVariant = "textSea";
 
 interface IPolygon {
   position: L.LatLngExpression[];
@@ -20,8 +20,6 @@ interface ITextMap {
   text?: string;
   variant?: TextVariant;
 }
-
-
 
 /** Кнопка включения/выключения полигонов  */
 const PolygonControl: FC<{ isVisible: boolean; onToggle: () => void }> = ({ isVisible, onToggle }) => {
@@ -65,9 +63,8 @@ const MapConfig: FC<{ bounds: L.LatLngBoundsExpression }> = ({ bounds }) => {
 };
 
 /** Конфиг текста*/
-const TextMap: FC<ITextMap> = ({ position, text , variant=""}) => {
-
-  const textIcon = new L.DivIcon({ html: `<p>${text}</p>`,  className: `textMap intaractiveMapTextH2 ${variant}` });
+const TextMap: FC<ITextMap> = ({ position, text, variant = "" }) => {
+  const textIcon = new L.DivIcon({ html: `<p>${text}</p>`, className: `textMap intaractiveMapTextH2 ${variant}` });
   return <Marker position={position} icon={textIcon} />;
 };
 
@@ -109,27 +106,18 @@ const MyPolygon: FC<IPolygon> = ({ position, color = "#ff0000ff", children }) =>
   );
 };
 
-
-
-
 const InteractiveMap: React.FC = () => {
   const [showPolygon, setShowPolygon] = useState(false);
   const [showZoomOverOne, setShowZoomOverOne] = useState(false);
-  const imageBounds: L.LatLngBoundsExpression = [
-    [0, 0],
-    [1080, 1920],
-  ];
+  const imageBounds: L.LatLngBoundsExpression = [[0, 0], [1080, 1920],];
 
   /** Обработчик изменения зума */
   const handleZoomChange = (zoom: number) => {
     setShowZoomOverOne(zoom >= 2);
   };
 
-
-
   return (
     <>
-    
       {/* <DevToolsInteractiveMap></DevToolsInteractiveMap>   */}
       <MapContainer className="InteractiveMap" bounds={imageBounds} minZoom={-1} maxZoom={4} zoomControl={true}>
         <MapConfig bounds={imageBounds} />
