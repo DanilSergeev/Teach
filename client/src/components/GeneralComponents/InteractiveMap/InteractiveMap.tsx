@@ -7,7 +7,7 @@ import DevToolsInteractiveMap from "./DevToolsInteractiveMap";
 
 const mymap = require("../../../assets/img/testmap.png");
 
-type TextVariant = "textSea";
+type TextVariant = "textSea" | "textSnow"|"intaractiveMapTextH2" | string;
 
 interface IPolygon {
   position: L.LatLngExpression[];
@@ -64,7 +64,7 @@ const MapConfig: FC<{ bounds: L.LatLngBoundsExpression }> = ({ bounds }) => {
 
 /** Конфиг текста*/
 const TextMap: FC<ITextMap> = ({ position, text, variant = "" }) => {
-  const textIcon = new L.DivIcon({ html: `<p>${text}</p>`, className: `textMap intaractiveMapTextH2 ${variant}` });
+  const textIcon = new L.DivIcon({ html: `<p>${text}</p>`, className: `textMap ${variant}` });
   return <Marker position={position} icon={textIcon} />;
 };
 
@@ -105,7 +105,6 @@ const MyPolygon: FC<IPolygon> = ({ position, color = "#ff0000ff", children }) =>
     </Polygon>
   );
 };
-
 const InteractiveMap: React.FC = () => {
   const [showPolygon, setShowPolygon] = useState(false);
   const [showZoomOverOne, setShowZoomOverOne] = useState(false);
@@ -134,25 +133,13 @@ const InteractiveMap: React.FC = () => {
         ) : (
           <></>
         )}
-        <TextMap position={[66, 270]} text="sea" variant="textSea" />
+        <TextMap position={[66, 270]} text="sea" variant="textSnow intaractiveMapTextH2" />
+        <TextMap position={[666, 270]} text="seaasddas" />
 
         {showPolygon ? (
           <>
-            <MyPolygon
-              color="#1eff00ff"
-              position={[
-                [639, 668],
-                [653, 502],
-                [805, 542],
-              ]}></MyPolygon>
-            <MyPolygon
-              color="#001affff"
-              position={[
-                [62, 38],
-                [123, 122],
-                [200, 542],
-              ]}
-            />
+            <MyPolygon color="#1eff00ff" position={[[639, 668], [653, 502], [805, 542],]}></MyPolygon>
+            <MyPolygon color="#001affff" position={[[62, 38], [123, 122], [200, 542],]} />
           </>
         ) : (
           <></>

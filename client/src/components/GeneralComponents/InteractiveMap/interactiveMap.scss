@@ -21,12 +21,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: .65;
+    opacity: .72;
+    font-size: 14px;
     -webkit-text-stroke: 1px rgba(0, 0, 0, 0.3);
 }
 .textSea{
     color: rgba(55, 71, 218);
 }
+.textSnow{
+    color: rgb(255, 255, 255) ;
+}
+
 
 .intaractiveMapTextH2 {
     font-size: 42px;
@@ -34,3 +39,5 @@
     font-family: cursive;
     letter-spacing: 1.6vh;
 }
+
+
