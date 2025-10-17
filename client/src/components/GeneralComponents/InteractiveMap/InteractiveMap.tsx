@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { MapContainer, ImageOverlay, useMap, Polygon, Popup, useMapEvents, Marker, Tooltip } from "react-leaflet";
+import { MapContainer, ImageOverlay, useMap, Polygon,  useMapEvents, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "./interactiveMap.scss";
 import * as L from "leaflet";
@@ -7,7 +7,7 @@ import DevToolsInteractiveMap from "./DevToolsInteractiveMap";
 
 const mymap = require("../../../assets/img/testmap.png");
 
-type TextVariant = "textSea" | "textSnow"|"intaractiveMapTextH2" | string;
+type TextVariant = "textSea" | "textSnow" | "intaractiveMapTextH2" | string;
 
 interface IPolygon {
   position: L.LatLngExpression[];
@@ -19,7 +19,9 @@ interface ITextMap {
   position: L.LatLngExpression;
   text?: string;
   variant?: TextVariant;
+  point?: boolean;
 }
+
 
 /** Кнопка включения/выключения полигонов  */
 const PolygonControl: FC<{ isVisible: boolean; onToggle: () => void }> = ({ isVisible, onToggle }) => {
@@ -57,14 +59,18 @@ const MapConfig: FC<{ bounds: L.LatLngBoundsExpression }> = ({ bounds }) => {
   }, [map, bounds]);
   useEffect(() => {
     map.fitBounds(bounds); // подгоняет viewport под размеры изображения
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return null;
 };
 
 /** Конфиг текста*/
-const TextMap: FC<ITextMap> = ({ position, text, variant = "" }) => {
-  const textIcon = new L.DivIcon({ html: `<p>${text}</p>`, className: `textMap ${variant}` });
+const TextMap: FC<ITextMap> = ({ position, text, variant = "", point = false }) => {
+  const textIcon = new L.DivIcon({
+    html: ` ${point ? '<div></div>' : ''} <p>${text}</p>`,
+    className: `textMap ${variant}`
+  });
   return <Marker position={position} icon={textIcon} />;
 };
 
@@ -98,7 +104,7 @@ const MapTracker: FC<{ onZoomChange?: (zoom: number) => void }> = ({ onZoomChang
  * @example color="#FF00FF"
  * position={[[639, 668],[653, 502],[805, 542],]}
  */
-const MyPolygon: FC<IPolygon> = ({ position, color = "#ff0000ff", children }) => {
+const MyPolygon: FC<IPolygon> = ({ position, color = "#ff0000", children }) => {
   return (
     <Polygon pathOptions={{ color, fillOpacity: 0.15, opacity: 0.4 }} positions={[position]}>
       {children}
@@ -111,9 +117,9 @@ const InteractiveMap: React.FC = () => {
   const imageBounds: L.LatLngBoundsExpression = [[0, 0], [1080, 1920],];
 
   /** Обработчик изменения зума */
-  const handleZoomChange = (zoom: number) => {
+  function handleZoomChange(zoom: number) {
     setShowZoomOverOne(zoom >= 2);
-  };
+  }
 
   return (
     <>
@@ -121,29 +127,21 @@ const InteractiveMap: React.FC = () => {
       <MapContainer className="InteractiveMap" bounds={imageBounds} minZoom={-1} maxZoom={4} zoomControl={true}>
         <MapConfig bounds={imageBounds} />
         <ImageOverlay url={mymap} bounds={imageBounds} />
-
         <PolygonControl isVisible={showPolygon} onToggle={() => setShowPolygon(!showPolygon)} />
         <MapTracker onZoomChange={handleZoomChange} />
 
-        {showZoomOverOne ? (
-          <>
-            <TextMap position={[100, 500]} text="asd" />
-            <TextMap position={[300, 500]} text="ggrg" />
-          </>
-        ) : (
-          <></>
-        )}
-        <TextMap position={[66, 270]} text="sea" variant="textSnow intaractiveMapTextH2" />
-        <TextMap position={[666, 270]} text="seaasddas" />
+        {/* map components */}
+        {showZoomOverOne ? (<>
+          <TextMap position={[100, 500]} text="Tset" />
+          <TextMap position={[300, 500]} text="Ne test" />
+        </>) : (<></>)}
+        <TextMap position={[66, 270]} point={true} text="WIW" variant="textSnow intaractiveMapTextH2" />
+        <TextMap position={[666, 270]} text="Lorem ipsome" />
 
-        {showPolygon ? (
-          <>
-            <MyPolygon color="#1eff00ff" position={[[639, 668], [653, 502], [805, 542],]}></MyPolygon>
-            <MyPolygon color="#001affff" position={[[62, 38], [123, 122], [200, 542],]} />
-          </>
-        ) : (
-          <></>
-        )}
+        {showPolygon ? (<>
+          <MyPolygon color="#1eff00ff" position={[[639, 668], [653, 502], [805, 542],]}></MyPolygon>
+          <MyPolygon color="#001affff" position={[[62, 38], [123, 122], [200, 542],]} />
+        </>) : (<></>)}
       </MapContainer>
     </>
   );

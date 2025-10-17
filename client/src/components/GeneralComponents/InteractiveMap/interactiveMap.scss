@@ -1,5 +1,5 @@
 // Intaractive map
-.InteractiveMap{
+.InteractiveMap {
     position: relative !important;
 }
 // disable flag
@@ -17,21 +17,34 @@
 }
 
 // textMap
-.textMap{
+.textMap {
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: .72;
+    opacity: 0.72;
     font-size: 14px;
     -webkit-text-stroke: 1px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
+    div {
+        width: 8px;
+        height: 8px;
+        background-color: #000000;
+        border-radius: 50%;
+        position: absolute;
+        left: -45%;
+        border: 2px solid white;
+    }
+    div + p{
+        position: relative;
+        top: -1.7vh;
+    }
 }
-.textSea{
+.textSea {
     color: rgba(55, 71, 218);
 }
-.textSnow{
-    color: rgb(255, 255, 255) ;
+.textSnow {
+    color: rgb(255, 255, 255);
 }
-
 
 .intaractiveMapTextH2 {
     font-size: 42px;
@@ -39,5 +52,3 @@
     font-family: cursive;
     letter-spacing: 1.6vh;
 }
-
-
